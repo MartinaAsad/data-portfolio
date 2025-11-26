@@ -1,0 +1,29 @@
+import pandas as pd
+
+df = pd.read_csv('aeropuertos_arg.csv')
+
+'''['clasificacion_vuelo', 'clase_vuelo', 'aerolinea', 'aero_origen',
+       'origen_localidad', 'origen_provincia', 'pais_origen', 'aero_destino',
+       'destino_localidad', 'destino_provincia', 'pais_destino',
+       'continente_destino', 'cant_pasajeros', 'cant_asientos', 'cant_vuelos']      '''
+
+#drop unnecessary columns
+df = df.drop(columns=['indice_tiempo', 'origen_continente', 'origen_aeropuerto', 'destino_aeropuerto'])
+
+#change names of columns
+columns_rename = {
+    'origen_oaci': 'aero_origen',
+    'destino_oaci': 'aero_destino',
+    'origen_pais': 'pais_origen',
+    'destino_pais': 'pais_destino',
+     'destino_continente': 'continente_destino',
+     'pasajeros': 'cant_pasajeros',
+     'asientos': 'cant_asientos',
+     'vuelos': 'cant_vuelos'
+}
+
+df = df.rename(columns=columns_rename)
+
+#merging
+
+print(df.columns)
