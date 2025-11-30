@@ -40,4 +40,4 @@ df = df.drop_duplicates()
 transform_columns = df.select_dtypes(include=['object']).columns.tolist()
 df [transform_columns] = df[transform_columns].astype('string')
 
-print(df.info())
+df.to_csv('aeropuertos_arg_limpio.csv', index=False, encoding='utf-8')
