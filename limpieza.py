@@ -31,4 +31,7 @@ df ['aeropuerto_destino']=df['aero_destino'] + ' - ' + df['destino_localidad']
 #drop unnecesary columns after merging
 df = df.drop(columns=['aero_origen', 'origen_localidad','aero_destino', 'destino_localidad'])
 
-print(df.head())
+#drop null, empty or duplicate rows
+df = df.dropna()
+df = df.drop_duplicates()
+
