@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 df = pd.read_csv('aeropuertos_arg.csv')
 
 '''['clasificacion_vuelo', 'clase_vuelo', 'aerolinea', 'aero_origen',
@@ -35,3 +36,8 @@ df = df.drop(columns=['aero_origen', 'origen_localidad','aero_destino', 'destino
 df = df.dropna()
 df = df.drop_duplicates()
 
+#build an array with all columns (object type)
+transform_columns = df.select_dtypes(include=['object']).columns.tolist()
+df [transform_columns] = df[transform_columns].astype('string')
+
+print(df.info())
