@@ -24,6 +24,11 @@ columns_rename = {
 
 df = df.rename(columns=columns_rename)
 
-#merging
+#merging columns
+df['aeropuerto_origen']=df['aero_origen'] + ' - ' + df['origen_localidad'] 
+df ['aeropuerto_destino']=df['aero_destino'] + ' - ' + df['destino_localidad']
 
-print(df.columns)
+#drop unnecesary columns after merging
+df = df.drop(columns=['aero_origen', 'origen_localidad','aero_destino', 'destino_localidad'])
+
+print(df.head())
