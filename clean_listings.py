@@ -22,6 +22,8 @@ df['host_since']= pd.to_datetime(df['host_since'],format='%Y-%m-%d')
 object_cols=df.select_dtypes(include=['object']).columns
 df[object_cols]=df[object_cols].astype('string')
 
-print('tipos de datos: ',df.dtypes)
-      
+#rename columns
+df_updated= df.rename(columns={'name':'name_listings','host_location':'host_address'})
+
+print(df_updated.columns)
 #https://www.youtube.com/playlist?list=PLxJ3eugu174JqpqulHkIf0wEmA2b5N5DF
