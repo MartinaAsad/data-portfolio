@@ -18,6 +18,10 @@ df= df.drop(columns, axis=1)
 
 #change the data type of columns
 df['host_since']= pd.to_datetime(df['host_since'],format='%Y-%m-%d')
-print(df.dtypes)
+
+object_cols=df.select_dtypes(include=['object']).columns
+df[object_cols]=df[object_cols].astype('string')
+
+print('tipos de datos: ',df.dtypes)
       
 #https://www.youtube.com/playlist?list=PLxJ3eugu174JqpqulHkIf0wEmA2b5N5DF
