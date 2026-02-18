@@ -17,13 +17,27 @@ columns =['host_response_rate','host_acceptance_rate','host_is_superhost','host_
 df= df.drop(columns, axis=1)
 
 #change the data type of columns
-df['host_since']= pd.to_datetime(df['host_since'],format='%Y-%m-%d')
+df['host_since']= pd.to_datetime(df['host_since'],format='%d/%m/%Y')
 
 object_cols=df.select_dtypes(include=['object']).columns
 df[object_cols]=df[object_cols].astype('string')
 
 #rename columns
-df_updated= df.rename(columns={'name':'name_listings','host_location':'host_address'})
+df_updated= df.rename(columns={'name':'name_listings',
+                               'host_location':'host_address',
+                               'host_response_time':'host_response_hours'})
 
-print(df_updated.columns)
+#replace information
+replace_dict={'a few days or more': '72',
+              'within a day':'24',
+              'within a few hours':'12',
+              'within an hour':'1'
+              }
+
+df_updated['host_response_hours']=df_updated['host_response_hours'].replace(replace_dict)
+
+df_updated['host_response_hours']=df_updated['host_response_hours'].fillna('No Activity')
+
+
+
 #https://www.youtube.com/playlist?list=PLxJ3eugu174JqpqulHkIf0wEmA2b5N5DF
