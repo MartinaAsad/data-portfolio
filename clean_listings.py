@@ -41,6 +41,7 @@ df_updated['host_response_hours']=df_updated['host_response_hours'].replace(repl
 df_updated['property_type']=df_updated['property_type'].replace(replace_property)
 
 df_updated['host_response_hours']=df_updated['host_response_hours'].fillna('No Activity')
+df_updated['review_scores_rating']=df_updated['review_scores_rating'].fillna(0.0)
 
 df_updated.to_parquet('dataset/Airbnb Data/listings.parquet', engine='fastparquet', compression='snappy', index=False)
-
+#print(df_updated['review_scores_rating'].unique())p
