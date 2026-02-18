@@ -38,6 +38,6 @@ df_updated['host_response_hours']=df_updated['host_response_hours'].replace(repl
 
 df_updated['host_response_hours']=df_updated['host_response_hours'].fillna('No Activity')
 
-
+df_updated.to_parquet('dataset/Airbnb Data/listings.parquet', engine='fastparquet', compression='snappy', index=False)
 
 #https://www.youtube.com/playlist?list=PLxJ3eugu174JqpqulHkIf0wEmA2b5N5DF
