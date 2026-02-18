@@ -33,11 +33,14 @@ replace_dict={'a few days or more': '72',
               'within a few hours':'12',
               'within an hour':'1'
               }
+replace_property={'Casa particular': 'Family house',
+                               'Room in Casa particular': 'Room in Family house',
+                               'Shared room in casa particular': 'Shared room in Family house'}
 
 df_updated['host_response_hours']=df_updated['host_response_hours'].replace(replace_dict)
+df_updated['property_type']=df_updated['property_type'].replace(replace_property)
 
 df_updated['host_response_hours']=df_updated['host_response_hours'].fillna('No Activity')
 
 df_updated.to_parquet('dataset/Airbnb Data/listings.parquet', engine='fastparquet', compression='snappy', index=False)
 
-#https://www.youtube.com/playlist?list=PLxJ3eugu174JqpqulHkIf0wEmA2b5N5DF
