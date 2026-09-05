@@ -15,3 +15,5 @@ filepath=os.path.join(folder, "long_holiday_data.json")
 
 with open ( filepath , "w" ) as file: 
     json.dump(response_long.json(), file)
+    
+    git commit -m "I downloaded a JSON file from nager holiday with 2023 long holidays"

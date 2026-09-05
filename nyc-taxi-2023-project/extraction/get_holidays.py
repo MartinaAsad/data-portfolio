@@ -1,4 +1,4 @@
-import requests
+import requests,json,os
 
 country_code = "US"
 year = 2023
@@ -7,10 +7,12 @@ year = 2023
 public_holiday = f"https://nagerholidays.com/api/v3/PublicHolidays/{year}/{country_code}"
 response_holiday = requests.get(public_holiday)
 
-if response_holiday.status_code == 200:
-    holidays = response_holiday.json()
-    for h in holidays:
-        print(h["date"], "-", h["name"])
-else:
-    print("Error:", response_holiday.status_code, response_holiday.text)
+#save the json in raw layout
+folder="nyc-taxi-2023-project/data/raw/holidays"
+os.makedirs(folder, exist_ok=True) #check if the folder exists
+
+filepath=os.path.join(folder, "holiday_data.json")
+
+with open ( filepath , "w" ) as file: 
+    json.dump(response_holiday.json(), file)
 
