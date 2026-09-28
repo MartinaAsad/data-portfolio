@@ -31,10 +31,10 @@ def get_info(file_type, file):
     print(null_values)
     
 #to get information about weather file
-#get_info('csv',filepath_1)
+get_info('csv',filepath_1)
 
 #to get information about holiday file
-get_info('json',filepath_2)
+#get_info('json',filepath_2)
 
 #to get information about long holiday file
 #get_info('json',filepath_3)
