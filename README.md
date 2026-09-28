@@ -13,3 +13,5 @@ COMO HACER PARTICIONES EXITOSAS?https://docs.delta.io/best-practices
 API SOBRE LOS DIAS FESTIVOS (VER SI SE PUEDE PASAR A CSV): https://nagerholidays.com/es/api
 
 API SOBRE EL CLIMA (VER SI SE PUEDE PASAR A CSV): https://www.ncei.noaa.gov/cdo-web/datatools/findstation
+https://www.ncei.noaa.gov/cdo-web/cart
+
