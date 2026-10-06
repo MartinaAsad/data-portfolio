@@ -1,0 +1,36 @@
+import pandas as pd
+import os,re
+
+folder="nyc-taxi-2023-project/data/raw/holidays"
+os.makedirs(folder, exist_ok=True) #check if the folder exists
+
+filepath_1=os.path.join(folder, "holiday_data.json")
+
+
+df=pd.read_json(filepath_1)
+def normalize_name(df):
+    
+    #transform camelCase to snake_case
+       df.columns = (
+        df.columns
+        .str.replace(r'([a-z])([A-Z])', r'\1_\2', regex=True)
+        .str.lower()
+    )
+       return df
+
+def cast_column(df,column_name, type):
+    
+    #object transform to array type
+    if('name' in column_name and type=='object'):
+       df[column_name] = df[column_name].astype('string')
+       print('entro aca')
+
+    
+df_2=normalize_name(df)
+print(df.dtypes)
+
+cast_column(df_2, 'local_name','object')
+cast_column(df_2, 'name','object')
+
+print(df_2[['local_name', 'name']].dtypes) #print the data type only in the modified columns
+#print('algo',df_2[['date']].dtypes) #print the data type only in the modified columns
