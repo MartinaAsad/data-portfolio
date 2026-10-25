@@ -1,11 +1,6 @@
 import pandas as pd
 import os,re
 
-folder="nyc-taxi-2023-project/data/raw/"
-os.makedirs(folder, exist_ok=True) #check if the folder exists
-
-filepath_1=os.path.join(folder, "weather/Weather Information.csv")
-df=pd.read_csv(filepath_1)
 def normalize_name(df):
       df.columns= df.columns.str.lower() #transform column name to lower case
       return df
