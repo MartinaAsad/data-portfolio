@@ -1,16 +1,6 @@
 import pandas as pd
 import os,re
 
-folder="nyc-taxi-2023-project/data/raw/holidays"
-os.makedirs(folder, exist_ok=True) #check if the folder exists
-
-filepath_1=os.path.join(folder, "holiday_data.json")
-filepath_2=os.path.join(folder, "long_holiday_data.json")
-
-
-df=pd.read_json(filepath_1)
-df_long=pd.read_json(filepath_2)
-
 def normalize_name(df):
     
     #transform camelCase to snake_case
@@ -29,7 +19,7 @@ def cast_column(df,column_name, type):
     elif ('date' in column_name and type=='object'):
        df[column_name] = pd.to_datetime(df[column_name])
        
-       return df
+    return df
 
 
 #testing both emthods
