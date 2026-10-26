@@ -36,4 +36,7 @@ df_weather=cast_column(df_weather, 'name','string')
 output_dir="nyc-taxi-2023-project/data/bronze/"
 output_holidays=os.path.join(output_dir, "holidays")
 #df_to_parquet(df_holiday, output_holidays , 'holiday.parquet')
-df_to_parquet(df_long, output_holidays , 'long_holidays.parquet')
+#df_to_parquet(df_long, output_holidays , 'long_holidays.parquet')
+
+output_weather=os.path.join(output_dir, "weather")
+df_to_parquet(df_weather, output_weather , 'weather.parquet')
