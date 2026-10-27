@@ -19,11 +19,11 @@ df_holiday=cast_column(df_holiday, 'local_name','object')
 df_holiday=cast_column(df_holiday, 'name','object')
 
 
-#ENTITY LONG HOLIDAY
+# #ENTITY LONG HOLIDAY
 df_long=pd.read_json(filepath_2)
 df_long=normalize_name(df_long)
 
-#ENTITY WEATHER
+# #ENTITY WEATHER
 folder="nyc-taxi-2023-project/data/raw/"
 os.makedirs(folder, exist_ok=True) #check if the folder exists
 
@@ -34,18 +34,18 @@ df_weather=cast_column(df_weather, 'date','date')
 df_weather=cast_column(df_weather, 'station','string')
 df_weather=cast_column(df_weather, 'name','string')
 
-#TRANSFORM THE 3 DATAFRAME TO PARQUET FILE (ONE FOR EACH ENTITY)
+# #TRANSFORM THE 3 DATAFRAME TO PARQUET FILE (ONE FOR EACH ENTITY)
 output_dir="nyc-taxi-2023-project/data/bronze/"
 output_holidays=os.path.join(output_dir, "holidays")
-#df_to_parquet(df_holiday, output_holidays , 'holiday.parquet')
-#df_to_parquet(df_long, output_holidays , 'long_holidays.parquet')
+df_to_parquet(df_holiday, output_holidays , 'holiday.parquet')
+df_to_parquet(df_long, output_holidays , 'long_holidays.parquet')
 
 output_weather=os.path.join(output_dir, "weather")
-#df_to_parquet(df_weather, output_weather , 'weather.parquet')
+df_to_parquet(df_weather, output_weather , 'weather.parquet')
 
 #ENTITY TAXI (1 FILE BY MONTH)
-folder="nyc-taxi-2023-project/data/raw/taxis/"
-output_dir = "nyc-taxi-2023-project/data/bronze/taxis/"
+folder="data/raw/taxis/"
+output_dir = "data/bronze/taxis/"
 
 for month in range(1,13):
     
@@ -67,9 +67,11 @@ for month in range(1,13):
     column_cast={"passenger_amount":"Int64", "final_rate_code":"Int64"}
     norm=cast_column(norm, column_cast)
     
+    output_path = os.path.join(output_dir, filename)
+
     #save new parquet to bronze folder
     norm.to_parquet(
-        output_dir,
+        output_path,
         engine="pyarrow",
         compression="snappy",
         index=False
