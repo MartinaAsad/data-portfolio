@@ -1,8 +1,10 @@
 import os
 import pandas as pd
+import pyarrow.parquet as pq
 
 from transformation.transformation_holiday import normalize_name, cast_column
 from load.load_bronze import df_to_parquet
+from transformation.transformation_taxis import normalize_name, cast_column, rename_column, add_date_column
 
 #ENTITY HOLIDAY 
 folder="nyc-taxi-2023-project/data/raw/holidays"
@@ -39,4 +41,38 @@ output_holidays=os.path.join(output_dir, "holidays")
 #df_to_parquet(df_long, output_holidays , 'long_holidays.parquet')
 
 output_weather=os.path.join(output_dir, "weather")
-df_to_parquet(df_weather, output_weather , 'weather.parquet')
+#df_to_parquet(df_weather, output_weather , 'weather.parquet')
+
+#ENTITY TAXI (1 FILE BY MONTH)
+folder="nyc-taxi-2023-project/data/raw/taxis/"
+output_dir = "nyc-taxi-2023-project/data/bronze/taxis/"
+
+for month in range(1,13):
+    
+    #read each Parquet by month
+    filename = f"yellow_tripdata_2023-{month:02d}.parquet"
+    filepath_1=os.path.join(folder, filename)
+    df = pd.read_parquet(filepath_1)
+    
+    #for each file, make transformations
+    norm=normalize_name(df)
+    
+    column_dict={"tpep_pickup_datetime":"pickup_datetime", "tpep_dropoff_datetime":"dropoff_datetime",
+             "passenger_count":"passenger_amount", "ratecode_id":"final_rate_code", "pulocation_id":"tlc_engaged",
+             "dolocation_id":"tlc_disengaged","tip_amount":"credit_card_tip"}
+    
+    norm =rename_column(norm, column_dict)
+    norm = add_date_column(norm)
+
+    column_cast={"passenger_amount":"Int64", "final_rate_code":"Int64"}
+    norm=cast_column(norm, column_cast)
+    
+    #save new parquet to bronze folder
+    norm.to_parquet(
+        output_dir,
+        engine="pyarrow",
+        compression="snappy",
+        index=False
+    )
+
+
