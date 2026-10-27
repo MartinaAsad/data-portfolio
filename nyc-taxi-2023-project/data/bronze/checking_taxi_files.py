@@ -12,6 +12,8 @@ for month in range(2, 13):
 
     filename = f"yellow_tripdata_2023-{month:02d}.parquet"
     filepath = folder / filename
+     # Read current month schema
+    schema = pq.read_schema(filepath)
 
     current_schema = pq.read_schema(filepath)
 
@@ -34,3 +36,5 @@ for month in range(2, 13):
             print(
                 f"{col}: {ref_type} -> {curr_type}"
             )
+            
+        print(schema.equals(reference_schema))
