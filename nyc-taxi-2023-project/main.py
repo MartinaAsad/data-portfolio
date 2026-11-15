@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import pyarrow.parquet as pq
 
-from transformation.transformation_holiday import normalize_name, cast_column
+from transformation.transformation_holiday import normalize_name, cast_column as cl
 from load.load_bronze import df_to_parquet
 from transformation.transformation_taxis import normalize_name, cast_column, rename_column, add_date_column
 
@@ -15,8 +15,8 @@ from transformation.transformation_taxis import normalize_name, cast_column, ren
 
 # df=pd.read_json(filepath_1)
 # df_holiday=normalize_name(df)
-# df_holiday=cast_column(df_holiday, 'local_name','object')
-# df_holiday=cast_column(df_holiday, 'name','object')
+# df_holiday= cl(df_holiday, 'local_name','object')
+# df_holiday=cl(df_holiday, 'name','object')
 
 
 # # #ENTITY LONG HOLIDAY
