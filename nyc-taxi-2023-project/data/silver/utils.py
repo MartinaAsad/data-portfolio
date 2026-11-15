@@ -1,4 +1,3 @@
-
 def drop_columns(df, list_columns):
     df=df.drop(columns=list_columns)
     return df
